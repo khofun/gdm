@@ -1,0 +1,89 @@
+<div ng-controller="AccessorsController">
+	<h2>Garage: {{garage.name}} <button type="submit" class="main-button" ng-hide="editing" ng-click="startEditing()" >Update</button></h2>
+<div ng-hide="editing">
+locate at {{garage.locaton}}. Master Code {{garage.master_code}}. It is {{garage.state}}.
+</div>
+<hr/>
+
+<div ng-show="editing">
+<!-- When the form is submitted call the save() function within the controller -->
+<form class="form-vertical">
+
+    <!-- The control-group, control-label, and controls classes are Bootstrap specific -->
+    <div class="control-group">
+        <label class="control-label">Garage Name:</label>
+
+        <div class="controls">
+            <!-- This input is tied to the garage.name object. -->
+            <input type="text" ng-model="garage.name"/>
+        </div>
+            
+        <label class="control-label">Garage Location:</label>
+        <div class="controls">
+            <!-- This input is tied to the garage.location object. -->
+            <input type="text" ng-model="garage.location"/>
+        </div>
+            
+        <label class="control-label">Garage Master Code:</label>
+        <div class="controls">
+            <!-- This input is tied to the garage.master_code object. -->
+            <input type="text" ng-model="garage.master_code"/>
+
+        </div>
+            <!-- If there's any errors that pertain to name display them here! -->
+            <div ng-repeat="error in errors.name">{{errors}}</div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+	      <button type="submit" class="main-button" ng-hide="isNew" ng-click="updateGarage()" >Update</button>
+	      <button type="submit" class="main-button" ng-hide="isNew" ng-click="destroy()" >Delete</button>
+	      <button type="submit" class="main-button" ng-show="isNew" ng-click="save()" >Add</button>
+    	</div>
+    </div>
+</form>
+</div>
+
+<div ng-hide="isNew">
+
+    <!-- This will only show when there's no items to let the user know there's purposefully nothing there.. -->
+    <div ng-show="friends.$resolved && friends.length == 0">
+        <h4>There's on one who can access this garage</h4>
+    </div>
+
+    <!-- Iterate over the accessors -->
+    <div class="media" ng-repeat="accessor in friends">
+        <div class="media">
+            <div class="media-body">
+                <h4 class="media-heading">
+                    {{accessor.accessor_id}}: Friend: {{accessor.first_name}} {{accessor.last_name}} Access Code: {{accessor.code}} 
+			        <button type="submit" class="main-button" ng-click="remove($index)" >Remove</button>
+                </h4>
+                
+            </div>
+        </div>
+    </div>
+
+    <hr/>
+
+    <!-- add a friend to access this garage -->
+    
+    <!-- This will only show when there's no items to let the user know there's purposefully nothing there.. -->
+    <div ng-show="tobeFriends.$resolved && tobeFriends.length == 0">
+        <h4>All of your friends can access this garage</h4>
+    </div>
+
+    <div ng-show="tobeFriends.$resolved && tobeFriends.length > 0">
+	    <form ng-submit="save()">
+	        Friend: <select ng-model="friendId" required>
+	        	<option></option>
+	        	<option ng-repeat="friend in tobeFriends" value="{{friend.friend_id}}">{{friend.friend_id}} {{friend.first_name}} {{friend.last_name}}</option>
+	        </select>
+	        Access Code: <input type="text" ng-model="code" placeholder="Code" required/>
+	        <br>
+	        <div ng-repeat="error in errors.name" class="alert alert-error"><strong>Code</strong> {{error}}</div>
+	
+	        <button type="submit" class="btn btn-primary btn-large">Add</button>
+	    </form>
+	</div>
+</div>
+</div>

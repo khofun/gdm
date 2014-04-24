@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %> by abcd function</p>
+
+<p>
+  <strong>Garage:</strong>
+  <%= @accessor.garage %>
+</p>
+
+<p>
+  <strong>Friend:</strong>
+  <%= @accessor.friend %>
+</p>
+
+<p>
+  <strong>Code:</strong>
+  <%= @accessor.code %>
+</p>
+
+<%= link_to 'Edit', edit_accessor_path(@accessor) %> |
+<%= link_to 'Back', accessors_path %>

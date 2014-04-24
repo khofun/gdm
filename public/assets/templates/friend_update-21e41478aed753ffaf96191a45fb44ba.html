@@ -1,0 +1,35 @@
+<h2>New Friend</h2>
+
+<!-- When the form is submitted call the save() function within the controller -->
+<form ng-submit="update()" class="form-vertical">
+	<input type="text" ng-model="working_id" />
+        
+    <!-- The control-group, control-label, and controls classes are Bootstrap specific -->
+    <div class="control-group">
+        <label class="control-label">First Name:</label>
+        <div class="controls">
+            <!-- This input is tied to the friend.first_name object. -->
+            <input type="text" ng-model="friend.first_name"/>
+        </div>
+        
+        <label class="control-label">Last Name:</label>
+        <div class="controls">
+            <!-- This input is tied to the friend.last_name object. -->
+            <input type="text" ng-model="friend.last_name"/>
+        </div>
+            
+        <label class="control-label">Phone Number:</label>
+        <div class="controls">
+            <!-- This input is tied to the friend.phone_number object. -->
+            <input type="text" ng-model="friend.phone_number"/>
+        </div>
+        
+            <!-- If there's any errors that pertain to name display them here! -->
+            <div ng-repeat="error in errors.name">{{error}}</div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <input class="btn btn-primary" type="submit" value="Update"/>
+        </div>
+    </div>
+</form>

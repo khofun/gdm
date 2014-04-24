@@ -1,0 +1,31 @@
+<h1>Listing accessors</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Garage</th>
+      <th>Friend</th>
+      <th>Code</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @accessors.each do |accessor| %>
+      <tr>
+        <td><%= accessor.garage %></td>
+        <td><%= accessor.friend %></td>
+        <td><%= accessor.code %></td>
+        <td><%= link_to 'Show', accessor %></td>
+        <td><%= link_to 'Edit', edit_accessor_path(accessor) %></td>
+        <td><%= link_to 'Destroy', accessor, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Accessor', new_accessor_path %>

@@ -1,0 +1,44 @@
+<h2>
+   <legend ng-hide="isNew">
+      Edit A Garage
+    </legend>
+    <legend ng-show="isNew">
+      Add A Garage
+    </legend>
+</h2>
+
+<!-- When the form is submitted call the save() function within the controller -->
+<form class="form-vertical">
+
+    <!-- The control-group, control-label, and controls classes are Bootstrap specific -->
+    <div class="control-group">
+        <label class="control-label">Garage Name:</label>
+
+        <div class="controls">
+            <!-- This input is tied to the garage.name object. -->
+            <input type="text" ng-model="garage.name"/>
+        </div>
+            
+        <label class="control-label">Garage Location:</label>
+        <div class="controls">
+            <!-- This input is tied to the garage.location object. -->
+            <input type="text" ng-model="garage.location"/>
+        </div>
+            
+        <label class="control-label">Garage Master Code:</label>
+        <div class="controls">
+            <!-- This input is tied to the garage.master_code object. -->
+            <input type="text" ng-model="garage.master_code"/>
+
+        </div>
+            <!-- If there's any errors that pertain to name display them here! -->
+            <div ng-repeat="error in errors.name">{{errors}}</div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+	      <button type="submit" class="main-button" ng-hide="isNew" ng-click="update()" >Update</button>
+	      <button type="submit" class="main-button" ng-hide="isNew" ng-click="destroy()" >Delete</button>
+	      <button type="submit" class="main-button" ng-show="isNew" ng-click="save()" >Add</button>
+    	</div>
+    </div>
+</form>

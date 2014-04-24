@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<head>
+  <title>Garage Door Management</title>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+  <style>
+        i.green:before {
+            color: green;
+        }
+        i.red:before {
+            color: red;
+        }
+        i.blue {
+            color: blue;
+        }
+        span.green {
+            color: green;
+        }
+        span.lablewidth {
+            width:  110px;
+        }
+        div.margin5 {
+        	margin: 5px 5px 5px;
+        }
+    </style>
+  <%= stylesheet_link_tag "application", :media => "all" %>
+  <%= javascript_include_tag "application", controller_name %>  
+  <%= csrf_meta_tags %>
+</head>
+<body>
+
+<div class="container">
+  <div ng-view="ng-view"></div>
+</div>
+</body>
+</html>

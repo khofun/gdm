@@ -1,0 +1,208 @@
+<div>
+	<tabset>
+		<tab heading="Garage">
+			<div class="row" ng-controller="GarageController" >
+				<h2>List of Garages</h2>
+				<div class="span9">
+					<!-- This will only show when there's no garages to let the user know there's purposefully nothing there.. -->
+					<div ng-show="garages.$resolved && garages.length == 0">
+						<hr/>
+						<h4>There's no garage yet</h4>
+					</div>
+
+					<accordion close-others="true">
+						<accordion-group ng-repeat="garage in garages" is-open="isopen$index" style="background-color: lightblue">
+							<accordion-heading>
+								<i ng-class="{'fa fa-unlock-alt fa-lg green': garage.state=='open',  'fa fa-lock fa-lg red': garage.state=='closed'}"></i>
+								<span ng-class="isopen$index && 'green'"> {{garage.name}}</span>
+								<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen$index, 'glyphicon-chevron-right': !isopen$index}"></i>
+							</accordion-heading>
+							<div style="background-color: lightblue">
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth">name</span>
+									<input class="form-control" type="text" ng-model="garage.name" placeholder="garage name" ng-readonly="!garage.isEditing">
+								</div>
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth" >master code</span>
+									<input class="form-control" type="text" ng-model="garage.master_code" placeholder="master code" ng-readonly="!garage.isEditing">
+								</div>
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth">location</span>
+									<input class="form-control" type="text" ng-model="garage.location" placeholder="location" ng-readonly="!garage.isEditing">
+								</div>
+								<div class="input-group margin5">
+									<a ng-show="!garage.isEditing" class="btn btn-default btn-sm" href="" ng-click="edit(garage)"><i class="fa fa-pencil green"></i> Edit</a>
+									<a ng-show="garage.isEditing" class="btn btn-default btn-sm" href="" ng-click="save(garage)"><i class="fa fa-save blue"></i> Save</a>
+									<!-- try to switch to Access Tab, but not working <a class="btn btn-default btn-sm" href="" ng-click="accesses($index)"><i class="fa fa-key brown"></i> Access</a>  -->
+									<a class="btn btn-default btn-sm" href="" ng-click="open_close(garage)"><i ng-class="{'fa fa-unlock-alt fa-lg green': garage.state=='closed',  'fa fa-lock fa-lg red': garage.state=='open'}"></i> <span ng-show="garage.state=='open'">Close it</span><span ng-show="garage.state=='closed'">Open it</span></a>
+									<a class="btn btn-default btn-sm" href="" ng-click="destroy($index)"><i class="fa fa-trash-o red"></i> Delete</a>
+								</div>
+
+							</div>
+						</accordion-group>
+						<accordion-group is-open="true" style="background-color: lightblue">
+							<accordion-heading>
+								New Garage
+								<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isAddingGaragePanelOpen, 'glyphicon-chevron-right': !isAddingGaragePanelOpen}"></i>
+							</accordion-heading>
+							<div style="background-color: lightblue">
+								<div class="input-group  margin5">
+									<span class="input-group-addon lablewidth">name</span>
+									<input class="form-control" type="text" ng-model="newGarage.name" placeholder="garage name">
+								</div>
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth" >master code</span>
+									<input class="form-control" type="text" ng-model="newGarage.master_code" placeholder="master code">
+								</div>
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth">location</span>
+									<input class="form-control" type="text" ng-model="newGarage.location" placeholder="location">
+								</div>
+								<div class="input-group margin5 margin5">
+									<a class="btn btn-default btn-sm" href="" ng-click="add(newGarage)"><i class="fa fa-save blue"></i> Add</a>
+								</div>
+							</div>
+						</accordion-group>
+					</accordion>
+				</div>
+			</div>
+		</tab>
+		<tab heading="Friend">
+			<div class="row" ng-controller="FriendController" >
+				<h2>List of Friends</h2>
+				<div class="span9">
+					<!-- This will only show when there's no friends to let the user know there's purposefully nothing there.. -->
+					<div ng-show="friends.$resolved && friends.length == 0">
+						<hr/>
+						<h4>There's no friend yet</h4>
+					</div>
+
+					<accordion close-others="true">
+						<accordion-group ng-repeat="friend in friends" is-open="isopen$index" style="background-color: lightblue">
+							<accordion-heading>
+								<span ng-class="isopen$index && 'green'"> {{friend.first_name}} {{friend.last_name}}</span>
+								<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isopen$index, 'glyphicon-chevron-right': !isopen$index}"></i>
+							</accordion-heading>
+							<div style="background-color: lightblue">
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth">First Name</span>
+									<input class="form-control" type="text" ng-model="friend.first_name" placeholder="first name" ng-readonly="!friend.isEditing">
+								</div>
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth">Last Name</span>
+									<input class="form-control" type="text" ng-model="friend.last_name" placeholder="last name" ng-readonly="!friend.isEditing">
+								</div>
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth" >Phone</span>
+									<input class="form-control" type="text" ng-model="friend.phone_number" placeholder="phone number" ng-readonly="!friend.isEditing">
+								</div>
+								<div class="input-group margin5 margin5">
+									<a ng-show="!friend.isEditing" class="btn btn-default btn-sm" href="" ng-click="edit(friend)"><i class="fa fa-pencil green"></i> Edit</a>
+									<a ng-show="friend.isEditing" class="btn btn-default btn-sm" href="" ng-click="save(friend)"><i class="fa fa-save blue"></i> Save</a>
+									<a class="btn btn-default btn-sm" href="" ng-click="destroy($index)"><i class="fa fa-trash-o"></i> Delete</a>
+								</div>
+							</div>
+						</accordion-group>
+						<accordion-group is-open="true" style="background-color: lightblue">
+							<accordion-heading>
+								New Friend
+								<i class="pull-right glyphicon" ng-class="{'glyphicon-chevron-down': isAddingFriendPanelOpen, 'glyphicon-chevron-right': !isAddingFriendPanelOpen}"></i>
+							</accordion-heading>
+							<div style="background-color: lightblue">
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth">First Name</span>
+									<input class="form-control" type="text" ng-model="newFriend.first_name" placeholder="first name">
+								</div>
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth">Last Name</span>
+									<input class="form-control" type="text" ng-model="newFriend.last_name" placeholder="last name">
+								</div>
+								<div class="input-group margin5">
+									<span class="input-group-addon lablewidth" >Phone</span>
+									<input class="form-control" type="text" ng-model="newFriend.phone_number" placeholder="phone number">
+								</div>
+								<div class="input-group margin5 margin5">
+									<a class="btn btn-default btn-sm" href="" ng-click="add(newFriend)"><i class="fa fa-save blue"></i> Add</a>
+								</div>
+							</div>
+						</accordion-group>
+					</accordion>
+				</div>
+			</div>
+
+		</tab>
+		<tab heading="Access" active="showAccess">
+			<div ng-controller="AccessController">
+
+				<!-- This will only show when there's no garages to let the user know there's purposefully nothing there.. -->
+				<div ng-show="garages.$resolved && garages.length == 0">
+					<hr/>
+					<h4>There's no garage yet</h4>
+				</div>
+				<div ng-show="garages.$resolved && garages.length > 0">
+					<h2>Choose a Garage
+					<select ng-model="editingGarageId" ng-change="garageChanged()" required>
+						<option ng-repeat="garage in garages" value="{{garage.id}}">{{garage.name}}</option>
+					</select></h2>
+					<div ng-hide="editingGarageId==0">
+						<div ng-hide="editing">
+							Located at {{garage.location}}. Master Code {{garage.master_code}}.
+						</div>
+						<hr/>
+
+						<div ng-hide="false">
+
+							<!-- This will only show when there's no items to let the user know there's purposefully nothing there.. -->
+							<div ng-show="friendsCanAccess.$resolved && friendsCanAccess.length == 0">
+								<h4>There's on one who can access this garage</h4>
+							</div>
+
+							<!-- Iterate over the friendsCanAccess -->
+
+							<table cellpadding="5px" cellspacing="5px" background="lightblue">
+								<tr ng-show="friendsCanAccess.$resolved && friendsCanAccess.length > 0">
+									<td colspan="3"><h4>Friends who can access this garage</h4></td>
+								</tr>
+								<tr ng-show="friendsCanAccess.$resolved && friendsCanAccess.length > 0">
+									<th width="10%" nowrap="">Name</th><th width="10%" nowrap="">Access Code</th><th>&nbsp;</th>
+								</tr>
+								<tr ng-repeat="friend in friendsCanAccess">
+									<td>{{friend.first_name}} {{friend.last_name}}</td>
+									<td>{{friend.code}}</td>
+									<td><a class="btn btn-default btn-sm" href="" ng-click="remove($index)"><i class="fa fa-trash-o red"></i> Remove</a></td>
+								</tr>
+							</table>
+							<hr/>
+
+							<!-- add a friend to access this garage -->
+
+							<!-- This will only show when there's no items to let the user know there's purposefully nothing there.. -->
+							<div ng-show="friendsCannotAccessGarage.$resolved && friendsCannotAccessGarage.length == 0">
+								<h4>All of your friends can access this garage</h4>
+							</div>
+
+							<div ng-show="friendsCannotAccessGarage.$resolved && friendsCannotAccessGarage.length > 0">
+								<form >
+									Friend:
+									<select ng-model="newFriend.friendId" required>
+										<option ng-repeat="friend in friendsCannotAccessGarage" value="{{friend.friend_id}}">{{friend.first_name}} {{friend.last_name}}</option>
+									</select>
+									Access Code:
+									<input type="text" ng-model="newFriend.code" placeholder="Code" required/>
+									<br>
+									<div ng-repeat="error in errors.name" class="alert alert-error">
+										<strong>Code</strong> {{error}}
+									</div>
+									<div class="input-group margin5 margin5">
+										<a class="btn btn-default btn-sm" href="" ng-click="save(newFriend)"><i class="fa fa-save blue"></i> Add</a>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+
+			</div>
+		</tab>
+	</tabset>
+</div>

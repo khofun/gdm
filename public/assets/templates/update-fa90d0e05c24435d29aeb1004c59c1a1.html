@@ -1,0 +1,41 @@
+<h2>New Forum</h2>
+
+<!-- When the form is submitted call the save() function within the controller -->
+<form ng-submit="save()" class="form-vertical">
+
+	<input type="text" ng-model="working_msg1" />
+	<input type="text" ng-model="working_msg2" />
+	<input type="text" ng-model="working_msg3" />
+	
+	
+	    <!-- A nice table that will contain a list of Forums -->
+        <table class="table table-hover">
+            <!-- This will create a row for every item within our items object (both of these refer to the forums -->
+            <tr ng-repeat="item in items">
+                <td width="100%"><a href="#/forum/{{item.id}}">{{item.id}}  {{item.name}}</a></td>
+
+                <!-- When the user clicks this button it will call the 'destory()' method within the controller -->
+                <td><a ng-click="destroy($index)" href=""><i class="icon-trash"></i></a></td>
+            </tr>
+        </table>
+
+
+
+    <!-- The control-group, control-label, and controls classes are Bootstrap specific -->
+    <div class="control-group">
+        <label class="control-label">Forum Name:</label>
+
+        <div class="controls">
+            <!-- This input is tied to the forum.name object. -->
+            <input type="text" ng-model="forum.name"/>
+
+            <!-- If there's any errors that pertain to name display them here! -->
+            <div ng-repeat="error in errors.name">{{errors}}</div>
+        </div>
+    </div>
+    <div class="control-group">
+        <div class="controls">
+            <input class="btn btn-primary" type="submit" value="Update!"/>
+        </div>
+    </div>
+</form>

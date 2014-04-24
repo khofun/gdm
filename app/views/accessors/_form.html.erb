@@ -1,0 +1,29 @@
+<%= form_for(@accessor) do |f| %>
+  <% if @accessor.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@accessor.errors.count, "error") %> prohibited this accessor from being saved:</h2>
+
+      <ul>
+      <% @accessor.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :garage_id %><br>
+    <%= f.text_field :garage_id %>
+  </div>
+  <div class="field">
+    <%= f.label :friend_id %><br>
+    <%= f.text_field :friend_id %>
+  </div>
+  <div class="field">
+    <%= f.label :code %><br>
+    <%= f.text_field :code %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
